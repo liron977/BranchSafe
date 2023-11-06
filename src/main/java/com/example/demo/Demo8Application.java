@@ -14,14 +14,25 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import static com.example.demo.TranslatorText.prettify;
+
 @SpringBootApplication
 public class Demo8Application {
 
     public static void main(String[] args) throws TelegramApiException, IOException {
         SpringApplication.run(Demo8Application.class, args);
-        ChuckNorrisJokeService norrisJokeService=new ChuckNorrisJokeService();
-        ArrayList<String> jokesList=norrisJokeService.scrapeJokes();
-        System.out.println(jokesList);
+//        try {
+//            String inputText = "hey";
+//            String targetLanguage ="as";
+//            TranslatorText translator = new TranslatorText();
+//            String response = translator.Post(inputText, targetLanguage);
+//            System.out.println(prettify(response));
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        ChuckNorrisJokeService norrisJokeService=new ChuckNorrisJokeService();
+//        ArrayList<String> jokesList=norrisJokeService.scrapeJokes();
+//        System.out.println(jokesList);
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
 
