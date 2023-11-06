@@ -38,10 +38,21 @@ public class TranslatorText {
 
     // This function prettifies the json response.
     public static String prettify(String json_text) {
-        JsonParser parser = new JsonParser();
-        JsonElement json = parser.parse(json_text);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(json);
+        // Parse the JSON response
+        JsonArray jsonArray = JsonParser.parseString(json_text).getAsJsonArray();
+
+        // Access the first element of the array
+        JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+
+        // Access the 'translations' array
+        JsonArray translationsArray = jsonObject.getAsJsonArray("translations");
+
+        // Access the first element of the 'translations' array
+        JsonObject translationObject = translationsArray.get(0).getAsJsonObject();
+
+        // Extract the 'text' field
+        String translatedText = translationObject.get("text").getAsString();
+        return translatedText;
     }
 
 }
