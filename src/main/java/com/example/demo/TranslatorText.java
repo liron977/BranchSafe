@@ -16,7 +16,6 @@ public class TranslatorText {
     // required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.
     private static String location = "centralus";
 
-
     // Instantiates the OkHttpClient.
     OkHttpClient client = new OkHttpClient();
 

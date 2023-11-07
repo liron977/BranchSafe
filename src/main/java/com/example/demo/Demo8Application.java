@@ -15,10 +15,8 @@ public class Demo8Application {
         SpringApplication.run(Demo8Application.class, args);
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-
             MyBot bot = new MyBot();
             bot.init();
-
             botsApi.registerBot(bot);
 
         } catch (TelegramApiException e) {

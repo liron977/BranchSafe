@@ -43,22 +43,6 @@ public class MyBot extends TelegramLongPollingBot {
         this.jokesList=norrisJokeService.scrapeJokes();
     }
 
-
-//    @Override
-//    public void onUpdateReceived(Update update) {
-//        // We check if the update has a message and the message has text
-//        if (update.hasMessage() && update.getMessage().hasText()) {
-//            SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
-//            message.setChatId(update.getMessage().getChatId().toString());
-//            message.setText(update.getMessage().getText());
-//
-//            try {
-//                execute(message); // Call method to send the message
-//            } catch (TelegramApiException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 public void onUpdateReceived(Update update) {
     long chatId;
     String userIndexInput="", userLanguageInput="", selectedLanguage="";
@@ -67,7 +51,7 @@ public void onUpdateReceived(Update update) {
         chatId = message.getChatId();
 
         // Check if the received message is the command to start input
-        if (message.getText().equals("/startinput")) {
+        if (message.getText().equals("/chuckBot")) {
             sendTextMessage("Insert integer in the range of 1-101", chatId);
             isValidIndex = true;
         } else {
@@ -79,7 +63,7 @@ public void onUpdateReceived(Update update) {
                 try {
                     int userNumber = Integer.parseInt(userIndexInput);
                     if (userNumber >= 1 && userNumber <= 101) {
-                        selectedJoke = jokesList.get(userNumber);
+                        selectedJoke = jokesList.get(userNumber-1);
                         isValidIndex = false;
                         isValidLanguage = true;
                         sendTextMessage("Insert target language",chatId);
@@ -92,7 +76,7 @@ public void onUpdateReceived(Update update) {
                     sendTextMessage("Invalid input. Please enter an integer in the range of 1-101.", chatId);
                 }
             } else if (isValidLanguage) {
-                userLanguageInput = message.getText().trim(); // Trim and convert to lowercase for case-insensitive comparison
+                userLanguageInput = message.getText().trim();
                 if (isLanguageValid(userLanguageInput)) {
                     selectedLanguage = getLanguageAbbreviation(userLanguageInput);
                     isValidLanguage = false;
@@ -126,11 +110,9 @@ public void onUpdateReceived(Update update) {
         languageMap.put("Catalan", "ca");
         languageMap.put("Chinese Simplified", "zh-Hans");
         languageMap.put("Chinese Traditional", "zh-Hant");
-
         languageMap.put("Croatian", "hr");
         languageMap.put("Czech", "cs");
         languageMap.put("Danish", "da");
-
         languageMap.put("Dutch", "nl");
         languageMap.put("English", "en");
         languageMap.put("Estonian", "et");
@@ -138,7 +120,6 @@ public void onUpdateReceived(Update update) {
         languageMap.put("Filipino", "fil");
         languageMap.put("Finnish", "fi");
         languageMap.put("French", "fr");
-
         languageMap.put("German", "de");
         languageMap.put("Greek", "el");
         languageMap.put("Gujarati", "gu");
@@ -146,30 +127,23 @@ public void onUpdateReceived(Update update) {
         languageMap.put("Hindi", "hi");
         languageMap.put("Hungarian", "hu");
         languageMap.put("Icelandic", "is");
-
         languageMap.put("Indonesian", "id");
         languageMap.put("Inuktitut", "iu");
         languageMap.put("Irish", "ga");
         languageMap.put("Italian", "it");
         languageMap.put("Japanese", "ja");
         languageMap.put("Kannada", "kn");
-
         languageMap.put("Korean", "ko");
-
         languageMap.put("Latvian", "lv");
         languageMap.put("Lithuanian", "lt");
-
         languageMap.put("Malagasy", "mg");
         languageMap.put("Malay (Latin)", "ms");
         languageMap.put("Malayalam", "ml");
         languageMap.put("Maltese", "mt");
         languageMap.put("Maori", "mi");
         languageMap.put("Marathi", "mr");
-
         languageMap.put("Norwegian", "nb");
-
         languageMap.put("Odia", "or");
-
         languageMap.put("Persian", "fa");
         languageMap.put("Polish", "pl");
         languageMap.put("Portuguese (Brazil)", "pt");
@@ -178,7 +152,6 @@ public void onUpdateReceived(Update update) {
         languageMap.put("Russian", "ru");
         languageMap.put("Samoan (Latin)", "sm");
         languageMap.put("Serbian (Latin)", "sr-Latn");
-
         languageMap.put("Slovak", "sk");
         languageMap.put("Slovenian", "sl");
         languageMap.put("Spanish", "es");
@@ -197,7 +170,7 @@ public void onUpdateReceived(Update update) {
         languageMap.put("Welsh", "cy");
     }
     public boolean isLanguageValid(String languageInput) {
-        // Check if the languageInput exists in the languageMap values
+        // Check if the languageInput exists in the languageMap keys
         for (String key : languageMap.keySet()) {
             if (key.equals(languageInput)) {
                 return true;
@@ -220,7 +193,6 @@ public void onUpdateReceived(Update update) {
         try {
             TranslatorText translator = new TranslatorText();
             String response = translator.Post(inputText, targetLanguage);
-
             sendTextMessage(prettify(response),chatId);
 
         } catch (Exception e) {
