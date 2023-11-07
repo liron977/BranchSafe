@@ -13,9 +13,8 @@
     <name>demo8</name>
     <description>demo8</description>
     <properties>
-        <java.version>8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
     <dependencies>
         <dependency>
@@ -194,7 +193,7 @@
                     <appServicePlanResourceGroup>test</appServicePlanResourceGroup>
                     <runtime>
                         <os>Linux</os>
-                        <javaVersion>Java 8</javaVersion>
+                        <javaVersion>Java 17</javaVersion>
                         <webContainer>Java SE</webContainer>
                     </runtime>
                     <deployment>
